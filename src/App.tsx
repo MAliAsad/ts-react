@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, createContext } from "react";
+import "./App.css";
+import Person, { HairColor } from "./components/Person";
 
-function App() {
+type AppContextInterface = {
+  name: string;
+  age: number;
+  country: string;
+};
+
+const AppContext = createContext<AppContextInterface | null>(null);
+
+const App: FC = () => {
+  const contextValue: AppContextInterface = {
+    name: "Mian",
+    age: 20,
+    country: "paki",
+  };
+
+  const name: string = "Ali";
+  const age: number = 22;
+  const isMarried: boolean = false;
+
+  // const getName = (name: string): number => {
+  //   if (name === "Ali") {
+  //     return 20;
+  //   } else {
+  //     return 0;
+  //   }
+  // };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={contextValue}>
+      <div className="App">
+        <Person
+          name={name}
+          age={age}
+          isMarried={isMarried}
+          hairColor={HairColor.Brown}
+        />
+      </div>
+    </AppContext.Provider>
   );
-}
+};
 
 export default App;
